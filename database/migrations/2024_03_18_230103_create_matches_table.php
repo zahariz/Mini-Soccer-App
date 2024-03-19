@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tim1');
-            $table->unsignedBigInteger('tim2');
-            $table->unsignedBigInteger('goal1');
-            $table->unsignedBigInteger('goal2');
+            $table->unsignedTinyInteger('tim1');
+            $table->unsignedTinyInteger('tim2');
+            $table->unsignedTinyInteger('goal1');
+            $table->unsignedTinyInteger('goal2');
             $table->timestamps();
 
             $table->foreign('tim1')->references('id')->on('clubs');

@@ -52,23 +52,56 @@ class FootballController extends Controller
         return Redirect::route('football.clubs.index')->with('status', 'Club successfully created!');
     }
 
+    public function createMatches()
+    {
+        $clubs = Club::all();
+        return view('matches.create', [
+            'clubs' => $clubs
+        ]);
+    }
+
+    public function viewMatches(Request $request)
+    {
+        $query = Matches::query()->with(['homeClub','awayClub']);
+
+        // Cek apakah ada parameter pencarian yang diteruskan melalui URL
+        if ($request->has('search')) {
+            // Dapatkan nilai pencarian dari parameter 'search'
+            $searchTerm = $request->input('search');
+
+            // Filter Tim berdasarkan kriteria pencarian
+            $query->where('tim1', 'like', '%' . $searchTerm . '%')
+                ->orWhere('goal1', 'like', '%' . $searchTerm . '%')
+                ->orWhere('tim2', 'like', '%' . $searchTerm . '%')
+                ->orWhere('goal2', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Ambil data Tim setelah diterapkan pencarian (jika ada)
+        $matches = $query->get();
+        return view('matches.index', [
+            'matches' => $matches
+        ]);
+    }
+
     public function storeMatches(Request $request)
     {
         $request->validate([
-            'tim1' => 'required',
-            'tim2' => 'required',
+            'tim1' => 'required|different:tim2',
+            'tim2' => 'required|different:tim1',
             'goal1' => 'required',
             'goal2' => 'required'
         ]);
 
-        $matches = Matches::create([
+        // dd($request->all());
+
+        Matches::create([
             'tim1' => $request->tim1,
-            'tim2' => $request->tim2,
             'goal1' => $request->goal1,
-            'goal2' => $request->goal2,
+            'tim2' => $request->tim2,
+            'goal2' => $request->goal2
         ]);
 
-        return $matches;
+        return Redirect::back()->with('status', 'Matches successfully created!');
     }
 
     public function standings()

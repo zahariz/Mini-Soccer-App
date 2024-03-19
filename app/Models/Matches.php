@@ -12,7 +12,7 @@ class Matches extends Model
 
     protected $keyType = 'int';
 
-    protected $table = 'clubs';
+    protected $table = 'matches';
 
     public $incrementing = true;
     public $timestamps = true;
@@ -25,8 +25,13 @@ class Matches extends Model
         'goal2'
     ];
 
-    public function club(): BelongsTo
+    public function homeClub(): BelongsTo
     {
-        return $this->belongsTo(Club::class);
+        return $this->belongsTo(Club::class, "tim1");
     }
+    public function awayClub(): BelongsTo
+    {
+        return $this->belongsTo(Club::class, "tim2");
+    }
+
 }

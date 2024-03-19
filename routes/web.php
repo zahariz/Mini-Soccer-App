@@ -33,8 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/clubs/create', [FootballController::class, 'createClub'])->name('football.clubs.create');
     Route::post('/clubs/create', [FootballController::class, 'storeClub'])->name('football.clubs.store');
 
-    Route::get('/matches', [FootballController::class, 'createMatches'])->name('football.matches.create');
-    Route::post('/matches', [FootballController::class, 'storeMatches'])->name('football.matches.store');
+    Route::get('/matches', [FootballController::class, 'viewMatches'])->name('football.matches.index');
+    Route::get('/matches/create', [FootballController::class, 'createMatches'])->name('football.matches.create');
+    Route::post('/matches/create', [FootballController::class, 'storeMatches'])->name('football.matches.store');
 
 });
 
