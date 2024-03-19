@@ -15,10 +15,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('football.clubs.index')" :active="request()->routeIs('[football.clubs.index, football.clubs.create]')">
+                    <x-nav-link :href="route('football.clubs.index')" :active="request()->routeIs(['football.clubs.index', 'football.clubs.create'])">
                         {{ __('Clubs') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('football.matches.create')" :active="request()->routeIs('[football.matches.create]')">
+                    <x-nav-link :href="route('football.matches.index')" :active="request()->routeIs(['football.matches.index', 'football.matches.create'])">
                         {{ __('Matches') }}
                     </x-nav-link>
                 </div>
