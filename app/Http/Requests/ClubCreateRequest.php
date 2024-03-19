@@ -22,7 +22,7 @@ class ClubCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tim' => ['required|unique:clubs'],
+            'tim' => ['required'],
             'city' => ['required']
         ];
     }

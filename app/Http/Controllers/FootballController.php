@@ -6,6 +6,7 @@ use App\Http\Requests\ClubCreateRequest;
 use App\Models\Club;
 use App\Models\Matches;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FootballController extends Controller
 {
@@ -48,7 +49,7 @@ class FootballController extends Controller
 
         $clubs->save();
 
-        return $clubs;
+        return Redirect::route('football.clubs.index')->with('status', 'Club successfully created!');
     }
 
     public function storeMatches(Request $request)
