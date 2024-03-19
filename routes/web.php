@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/matches/create', [FootballController::class, 'createMatches'])->name('football.matches.create');
     Route::post('/matches/create', [FootballController::class, 'storeMatches'])->name('football.matches.store');
 
+
+    Route::get('/standings', [FootballController::class, 'standings'])->name('football.standings');
+
 });
 
 require __DIR__.'/auth.php';

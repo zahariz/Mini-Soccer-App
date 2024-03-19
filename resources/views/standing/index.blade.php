@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Matches') }}
+            {{ __('Standings') }}
         </h2>
     </x-slot>
 
@@ -18,54 +18,82 @@
                              @endsession
                             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                                 <div class="max-w-full">
-                                    <div class="flex justify-between">
-                                        <div class="mb-1">
-                                            <a href="{{ route('football.matches.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Create New</a>
-                                        </div>
-                                        <form action="{{ route('football.matches.index') }}" method="GET">
-                                            <div class="mb-4">
-                                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..." class="p-2 border border-gray-300 rounded-md">
-                                                <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded-md">Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
                                     <div class="relative overflow-x-auto">
                                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
                                                     <th scope="col" class="px-6 py-3">
-                                                        Home Club
+                                                        No
                                                     </th>
                                                     <th scope="col" class="px-6 py-3">
-                                                        Goal Home Club
+                                                        Klub
                                                     </th>
                                                     <th scope="col" class="px-6 py-3">
-                                                        Away Club
+                                                        Ma
                                                     </th>
                                                     <th scope="col" class="px-6 py-3">
-                                                        Goal Away Club
+                                                        Me
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
+                                                        S
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
+                                                        K
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
+                                                        GM
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
+                                                        GK
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
+                                                        Poin
                                                     </th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($matches as $row)
+                                                @php
+                                                    $i = 1;
+                                                @endphp
+                                                @foreach ($clubStatus as $row)
                                                 {{-- @dd($row) --}}
 
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row"
-                                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {{$row->homeClub->tim}}
+                                                        class="px-6 py-4">
+                                                        {{$i++}}
                                                     </th>
                                                     <td class="px-6 py-4">
-                                                        {{ $row->goal1 }}
+                                                        {{ $row['club']->tim }}
+
                                                     </td>
                                                     <td class="px-6 py-4">
-                                                        {{ $row->awayClub->tim }}
+                                                        {{ $row['total_main'] }}
+
                                                     </td>
                                                     <td class="px-6 py-4">
-                                                        {{ $row->goal2 }}
+                                                        {{ $row['menang'] }}
+
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ $row['seri'] }}
+
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ $row['kalah'] }}
+
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ $row['goal_for'] }}
+
+                                                    <td class="px-6 py-4">
+                                                        {{ $row['goal_against'] }}
+
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ $row['poin'] }}
                                                     </td>
 
                                                 </tr>
@@ -88,3 +116,8 @@
         </div>
     </div>
 </x-app-layout>
+
+
+{{-- @foreach ($clubStatus as $row)
+
+@endforeach --}}

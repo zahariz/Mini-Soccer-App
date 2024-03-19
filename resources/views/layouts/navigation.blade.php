@@ -12,8 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('football.standings')" :active="request()->routeIs(['football.standings'])">
+                        {{ __('Standings') }}
                     </x-nav-link>
                     <x-nav-link :href="route('football.clubs.index')" :active="request()->routeIs(['football.clubs.index', 'football.clubs.create'])">
                         {{ __('Clubs') }}
@@ -21,6 +21,7 @@
                     <x-nav-link :href="route('football.matches.index')" :active="request()->routeIs(['football.matches.index', 'football.matches.create'])">
                         {{ __('Matches') }}
                     </x-nav-link>
+
                 </div>
             </div>
 

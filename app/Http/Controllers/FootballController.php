@@ -84,25 +84,29 @@ class FootballController extends Controller
     }
 
     public function storeMatches(Request $request)
-    {
+{
+    // Validasi data
+    foreach ($request->matches as $key => $match) {
         $request->validate([
-            'tim1' => 'required|different:tim2',
-            'tim2' => 'required|different:tim1',
-            'goal1' => 'required',
-            'goal2' => 'required'
+            "matches.$key.tim1" => 'required|different:matches.*.away_club',
+            "matches.$key.goal1" => 'required',
+            "matches.$key.tim2" => 'required|different:matches.*.tim',
+            "matches.$key.goal2" => 'required',
         ]);
-
-        // dd($request->all());
-
-        Matches::create([
-            'tim1' => $request->tim1,
-            'goal1' => $request->goal1,
-            'tim2' => $request->tim2,
-            'goal2' => $request->goal2
-        ]);
-
-        return Redirect::back()->with('status', 'Matches successfully created!');
     }
+
+    // Simpan Multiple input match
+    foreach ($request->matches as $match) {
+        Matches::create([
+            'tim1' => $match['tim1'],
+            'goal1' => $match['goal1'],
+            'tim2' => $match['tim2'],
+            'goal2' => $match['goal2'],
+        ]);
+    }
+
+    return redirect()->back()->with('status', 'Matches successfully created!');
+}
 
     public function standings()
     {
@@ -161,7 +165,9 @@ class FootballController extends Controller
             return $b['poin'] <=> $a['poin'];
         });
 
-        return $clubStatus;
+        return view('standing.index', [
+            'clubStatus' => $clubStatus
+        ]);
 
 
     }
